@@ -1,0 +1,15 @@
+kafka:
+  bootstrap:
+    servers: localhost:29092
+mp:
+  messaging:
+    outgoing:
+      invoices:
+        connector: smallrye-kafka
+        topic: invoices
+        merge: true
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
+quarkus:
+  http:
+    port: 8081

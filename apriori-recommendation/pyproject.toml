@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "apriory-recommendation"
+version = "0.1.0"
+description = ""
+authors = ["David Šenica <david.senica@medius.si>"]
+readme = "README.md"
+packages = [{include = "apriory_recommendation"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.2"
+numpy = "^1.23.5"
+fastapi = "^0.88.0"
+uvicorn = "^0.20.0"
+confluent-kafka = "^1.9.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

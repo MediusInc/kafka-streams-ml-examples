@@ -1,0 +1,25 @@
+quarkus:
+  http:
+    port: 8083
+  kafka-streams:
+    bootstrap-servers: localhost:29092
+    topics: ${stream.in-topic}
+    auto:
+      offset:
+        reset: earliest
+    enable:
+      auto:
+        commit: true
+    commit:
+      interval:
+        ms: 5000
+    metadata:
+      max:
+        age:
+          ms: 500
+kafka:
+  bootstrap:
+    servers: localhost:29092
+stream:
+  in-topic: "invoices"
+  out-topic: "segments"
