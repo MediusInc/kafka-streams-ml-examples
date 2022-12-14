@@ -16,14 +16,11 @@ class RecommenderSystem(metaclass=Singleton):
         if segment['customerId'] not in self.updated_matrix.index:
             self.updated_matrix.loc[segment['customerId']] = [0] * len(self.updated_matrix.columns)
         self.updated_matrix.loc[segment['customerId'], segment['itemId']] += 1
-        self.count += 1
-        if self.count >= 50:
-            self.updated_matrix = self.updated_matrix.copy()
-            self.matrix = self.updated_matrix.copy()
-            self.count = 0
+        self.updated_matrix = self.updated_matrix.copy()
+        self.matrix = self.updated_matrix.copy()
 
     def recommend_for_customer(self, customer_id):
-        if customer_id not in self.matrix:
+        if customer_id not in self.matrix.index:
             return 'Customer does\'t exist yet'
         customer_items = self.matrix.loc[customer_id]
         distances = []

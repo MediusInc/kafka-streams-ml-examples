@@ -15,7 +15,8 @@ class Kafka(threading.Thread):
             'enable.auto.commit': True,
             'auto.offset.reset': 'earliest',
             'group.id': 'python_ml_consumer_group',
-            'value.deserializer': lambda v, ctx: json.loads(v.decode('utf-8'))
+            'value.deserializer': lambda v, ctx: json.loads(v.decode('utf-8')),
+            'auto.commit.interval.ms': 1000
         }
         self.consumer = DeserializingConsumer(config)
         self.consumer.subscribe(topics)
@@ -32,8 +33,8 @@ class Kafka(threading.Thread):
             msg = self.consumer.poll(5)
             if msg is not None:
                 value = msg.value()
-                # if msg.topic() == 'segments':
-                #     self.recommender_system.update(value)
-                # else:
-                #     self.apriori.update(value)
+                if msg.topic() == 'segments':
+                    self.recommender_system.update(value)
+                else:
+                    self.apriori.update(value)
         self.consumer.close()
