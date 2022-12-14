@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/makeit-2022 .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/datascience .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/makeit-2022
+# docker run -i --rm -p 8080:8080 quarkus/datascience
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:1.0

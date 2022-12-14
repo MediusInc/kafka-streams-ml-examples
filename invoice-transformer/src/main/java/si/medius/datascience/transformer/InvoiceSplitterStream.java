@@ -1,4 +1,4 @@
-package si.medius.makeit.joiner;
+package si.medius.datascience.transformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.quarkus.kafka.client.serialization.ObjectMapperSerde;
-import si.medius.makeit.entity.Invoice;
-import si.medius.makeit.entity.InvoiceStatus;
-import si.medius.makeit.entity.Segment;
+import si.medius.datascience.entity.Invoice;
+import si.medius.datascience.entity.InvoiceStatus;
+import si.medius.datascience.entity.Segment;
 
 @ApplicationScoped
 public class InvoiceSplitterStream
@@ -36,7 +36,7 @@ public class InvoiceSplitterStream
         ObjectMapperSerde<Segment> segmentSerde = new ObjectMapperSerde<>(Segment.class);
 
         builder.stream(streamConfig.inTopic(), Consumed.with(Serdes.String(), invoiceSerde))
-                .filter((k, v) -> v.getStatus() == InvoiceStatus.PENDING)
+                .filter((k, v) -> v.getStatus() == InvoiceStatus.PENDING && v.getItems() != null)
                 .flatMapValues(v -> {
                     List<Segment> segments = new ArrayList<>();
                     for (var i : v.getItems())

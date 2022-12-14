@@ -1,6 +1,6 @@
-# Data producer
+# Invoice transformer
 
-On start it reads data from csv and pushes it to `invoices` kafka topic
+Implements kafka streaming. It reads invoices from `invoices` topic, splits them into segments and pushes them to `segments` topic.
 
 ## Build
 Run `mvn clean package` (needs [entity](..%2Fentity) module to be built first)

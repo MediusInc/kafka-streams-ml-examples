@@ -1,4 +1,4 @@
-package si.medius.makeit.entity;
+package si.medius.datascience.entity;
 
 public class Segment
 {

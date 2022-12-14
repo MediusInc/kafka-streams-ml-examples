@@ -1,0 +1,123 @@
+version: '3.7'
+services:
+  redpanda:
+    container_name: redpanda
+    image: docker.redpanda.com/vectorized/redpanda:v22.3.4
+    command:
+      - redpanda start
+      - --smp 1
+      - --overprovisioned
+      - --node-id 0
+      - --kafka-addr PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+      - --pandaproxy-addr 0.0.0.0:8082
+      - --advertise-pandaproxy-addr localhost:8082
+    environment:
+      - enable_idempotence=true
+      - enable_transactions=true
+    ports:
+      - 8081:8081
+      - 8082:8082
+      - 9092:9092
+      - 9644:9644
+      - 29092:29092
+    volumes:
+      - ./volume/kafka:/var/lib/redpanda/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '1024mb'
+  console:
+    container_name: kafka-console
+    image: docker.redpanda.com/vectorized/console:latest
+    depends_on:
+      - redpanda
+    entrypoint: /bin/sh
+    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["redpanda:29092"]
+          schemaRegistry:
+            enabled: true
+            urls: ["http://redpanda:8081"]
+        redpanda:
+          adminApi:
+            enabled: true
+            urls: ["http://redpanda:9644"]
+        connect:
+          enabled: false
+    ports:
+      - 8085:8080
+    volumes:
+      - ./volume/console:/etc/console-mounts
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '256mb'
+
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - node.name=elastic
+      - discovery.type=single-node
+      - bootstrap.memory_lock=false
+      - xpack.license.self_generated.type=basic
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+    container_name: elastic
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '3096mb'
+        reservations:
+          memory: '2048mb'
+    volumes:
+      - ./volume/elastic:/usr/share/elasticsearch/data
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.5.3
+    depends_on:
+      - elastic
+    ports:
+      - 5601:5601
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=http://elastic:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '2024mb'
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:8.5.3
+    depends_on:
+      - elastic
+      - redpanda
+    volumes:
+      - ./logstash-conf/pipeline/:/usr/share/logstash/pipeline/
+      - ./logstash-conf/config/:/usr/share/logstash/config/
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '1024mb'

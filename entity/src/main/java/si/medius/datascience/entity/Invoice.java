@@ -1,4 +1,4 @@
-package si.medius.makeit.entity;
+package si.medius.datascience.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

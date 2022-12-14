@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <parent>
-    <artifactId>makeit-2022</artifactId>
-    <groupId>si.medius.makeit</groupId>
+    <groupId>si.medius.datascience</groupId>
+    <artifactId>datascience-demo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -37,9 +37,9 @@
       <artifactId>quarkus-arc</artifactId>
     </dependency>
     <dependency>
-      <groupId>si.medius.makeit</groupId>
-      <artifactId>makeit-entity</artifactId>
-      <version>${makeit.entity.version}</version>
+      <groupId>si.medius.datascience</groupId>
+      <artifactId>entity</artifactId>
+      <version>${entity.version}</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

@@ -1,6 +1,6 @@
 kafka:
   bootstrap:
-    servers: localhost:29092
+    servers: localhost:9092
 mp:
   messaging:
     outgoing:
@@ -12,4 +12,4 @@ mp:
           serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
 quarkus:
   http:
-    port: 8081
+    port: 5001

@@ -1,8 +1,8 @@
 quarkus:
   http:
-    port: 8083
+    port: 5002
   kafka-streams:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:9092
     topics: ${stream.in-topic}
     auto:
       offset:
@@ -19,7 +19,7 @@ quarkus:
           ms: 500
 kafka:
   bootstrap:
-    servers: localhost:29092
+    servers: localhost:9092
 stream:
   in-topic: "invoices"
   out-topic: "segments"

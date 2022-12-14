@@ -1,4 +1,4 @@
-package si.medius.makeit.kafka;
+package si.medius.datascience.kafka;
 
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -11,14 +11,12 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.OnOverflow;
 
 import io.smallrye.reactive.messaging.kafka.Record;
-import si.medius.makeit.entity.Invoice;
+import si.medius.datascience.entity.Invoice;
 
 @ApplicationScoped
 public class ProduceService
 {
-    @Inject
     @Channel("invoices")
-    @OnOverflow(value = OnOverflow.Strategy.BUFFER, bufferSize = 1000)
     Emitter<Record<String, Invoice>> invoiceEmitter;
 
     public void produce(Invoice invoice) {

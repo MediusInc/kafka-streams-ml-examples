@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>si.medius.makeit</groupId>
-    <artifactId>makeit-2022</artifactId>
+    <groupId>si.medius.datascience</groupId>
+    <artifactId>datascience-demo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -16,19 +16,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>2.7.2.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.14.3.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <makeit.entity.version>1.0.0-SNAPSHOT</makeit.entity.version>
+        <entity.version>1.0.0-SNAPSHOT</entity.version>
     </properties>
 
     <modules>
         <module>produce-data</module>
-        <module>makeit-entity</module>
-        <module>makeit-recommender</module>
-        <module>makeit-invoice-splitter</module>
-        <module>makeit-depo</module>
+        <module>invoice-transformer</module>
+        <module>entity</module>
     </modules>
 
     <dependencyManagement>

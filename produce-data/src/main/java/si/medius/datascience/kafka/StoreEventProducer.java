@@ -1,4 +1,4 @@
-package si.medius.makeit.kafka;
+package si.medius.datascience.kafka;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,9 +20,9 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import io.quarkus.runtime.StartupEvent;
-import si.medius.makeit.entity.Invoice;
-import si.medius.makeit.entity.InvoiceStatus;
-import si.medius.makeit.entity.Item;
+import si.medius.datascience.entity.Invoice;
+import si.medius.datascience.entity.InvoiceStatus;
+import si.medius.datascience.entity.Item;
 
 @ApplicationScoped
 public class StoreEventProducer

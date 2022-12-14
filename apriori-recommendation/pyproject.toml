@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "apriory-recommendation"
+name = "apriori-recommendation"
 version = "0.1.0"
 description = ""
 authors = ["David Šenica <david.senica@medius.si>"]
 readme = "README.md"
-packages = [{include = "apriory_recommendation"}]
+packages = [{include = "apriori_recommendation"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

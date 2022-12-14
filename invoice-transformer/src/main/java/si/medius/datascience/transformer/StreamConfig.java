@@ -1,4 +1,4 @@
-package si.medius.makeit.joiner;
+package si.medius.datascience.transformer;
 
 import io.smallrye.config.ConfigMapping;
 

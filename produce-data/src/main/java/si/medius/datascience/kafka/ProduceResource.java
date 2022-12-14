@@ -1,4 +1,4 @@
-package si.medius.makeit.kafka;
+package si.medius.datascience.kafka;
 
 import java.time.LocalDateTime;
 
@@ -11,9 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import si.medius.makeit.entity.Invoice;
-import si.medius.makeit.entity.InvoiceStatus;
-import si.medius.makeit.entity.Item;
+import si.medius.datascience.entity.Invoice;
+import si.medius.datascience.entity.InvoiceStatus;
+import si.medius.datascience.entity.Item;
 
 @Path("/produce")
 public class ProduceResource
